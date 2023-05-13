@@ -63,7 +63,7 @@
 		flex-flow: row wrap;
 		align-items: center;
 		gap: 4px;
-		height: 50px;
+		height: 40px;
 		flex: 1;
 	}
 	.author-name,
