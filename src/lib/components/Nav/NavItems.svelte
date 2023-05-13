@@ -2,24 +2,21 @@
 	import NavLink from '$lib/components/Nav/NavLink.svelte';
 </script>
 
-<nav class="hidden md:grid">
-	<div>
-		<NavLink href="/projects">Projects</NavLink>
-	</div>
-	<div>
-		<NavLink href="/blog">Blog</NavLink>
-	</div>
-	<div>
-		<NavLink href="/about">About</NavLink>
-	</div>
+<nav>
+	<NavLink href="/projects" />
+	<NavLink href="/blog" />
+	<NavLink href="/about" />
 </nav>
 
 <style lang="postcss">
 	nav {
-		background-color: inherit;
-		font-size: 1.1rem;
-		grid-template-columns: repeat(3, auto);
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-evenly;
+		align-items: flex-start;
 		flex: 1;
-		justify-items: center;
+		height: 40px;
+		background-color: inherit;
+		line-height: 1;
 	}
 </style>

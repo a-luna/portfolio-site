@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Chevron from '$lib/components/Icons/Chevron.svelte';
-	import type { TutorialSection } from '$lib/types';
+	import type { TutorialSection } from '$lib/types/types';
 	import { getRandomHexString } from '$lib/util';
+	import { BasicIconRenderer } from '$lib/components/Icons';
 	import { slide } from 'svelte/transition';
 
 	export let id = `gh-${getRandomHexString(4)}`;
@@ -9,8 +9,8 @@
 	export let section: TutorialSection;
 	let open = false;
 
-	import { createEventDispatcher } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
+	import { createEventDispatcher } from 'svelte';
 	const toggleDetailsElement = createEventDispatcher<{
 		toggleSection: { sectionId: string };
 	}>();
@@ -30,7 +30,7 @@
 <details id="github-links" bind:this={detailsElement} on:toggle={() => handleSectionToggled()}>
 	<summary>
 		<div class="summary-wrapper">
-			<div class="details-icon"><Chevron /></div>
+			<div class="details-icon"><BasicIconRenderer icon={'chevron'} /></div>
 			Github Links for {section.series_part}
 		</div>
 	</summary>
@@ -99,6 +99,7 @@
 	}
 
 	.github-links-wrapper > ul > li {
+		font-size: 1rem;
 		margin: 0.5rem 0 0.5rem 0;
 	}
 
@@ -113,18 +114,10 @@
 
 	#github-links > summary {
 		display: list-item;
-		list-style: none;
-		color: var(--accent-color);
-		background-color: var(--toggle-group-bg-color);
 		border-top: none;
-		border-left: 2px solid var(--accent-color);
-		border-right: 2px solid var(--accent-color);
-		border-bottom: 2px solid var(--accent-color);
-		font-size: 1.25rem;
-		line-height: 1;
-		padding: 11px 5px;
-		cursor: pointer;
-		white-space: nowrap;
+		border-left: 1px solid var(--accent-color);
+		border-right: 1px solid var(--accent-color);
+		border-bottom: 1px solid var(--accent-color);
 	}
 
 	#github-links[open] > summary {
@@ -153,6 +146,18 @@
 
 	.github-links-wrapper {
 		background-color: var(--toggle-group-bg-color);
-		border: 2px solid var(--accent-color);
+		border: 1px solid var(--accent-color);
+	}
+
+	@media (min-width: 640px) {
+		#github-links > summary {
+			border-left: 2px solid var(--accent-color);
+			border-right: 2px solid var(--accent-color);
+			border-bottom: 2px solid var(--accent-color);
+		}
+
+		.github-links-wrapper {
+			border: 2px solid var(--accent-color);
+		}
 	}
 </style>

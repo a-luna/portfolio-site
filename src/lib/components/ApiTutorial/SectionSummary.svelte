@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { TutorialSection } from '$lib/types';
-	import ArrowDown from '$lib/components/Icons/ArrowDown.svelte';
-	import Code from '$lib/components/Icons/Code.svelte';
 	import PreviewImage from '$lib/components/ApiTutorial/PreviewImage.svelte';
+	import type { TutorialSection } from '$lib/types/types';
+	import { BasicIconRenderer } from '$lib/components/Icons';
 
 	export let section: TutorialSection;
-	let slug: string = '';
+	let slug = '';
 	let href: string | undefined = '';
 	let lead: string | undefined = '';
 	let description: string | undefined = '';
@@ -31,24 +30,32 @@
 	</div>
 	<div class="section-summary">{description}</div>
 	<div class="github-links">
-		<div class="links-left">
+		<div class="links-left green">
 			<a href={url_git_rel_browse} title="View source for this tutorial section">
-				<div class="icon"><Code /></div>
-				<span class="label">Code</span>
+				<div class="button-label">
+					<div class="icon"><BasicIconRenderer icon={'code'} /></div>
+					<span class="label">code</span>
+				</div>
 			</a>
 			<a href={url_git_rel_diff} title="View source diff between this section and the previous">
-				<div class="icon"><Code /></div>
-				<span class="label">Diff</span>
+				<div class="button-label">
+					<div class="icon"><BasicIconRenderer icon={'code'} /></div>
+					<span class="label">diff</span>
+				</div>
 			</a>
 		</div>
 		<div class="links-right">
 			<a href={url_git_rel_zip} title="Download source code for this tutorial section (.zip file)">
-				<div class="icon"><ArrowDown /></div>
-				<span class="label">.zip</span>
+				<div class="button-label">
+					<div class="icon"><BasicIconRenderer icon={'arrowdown'} /></div>
+					<span class="label">.zip</span>
+				</div>
 			</a>
 			<a href={url_git_rel_tar} title="Download source code for this tutorial section (.tar.gz file)">
-				<div class="icon"><ArrowDown /></div>
-				<span class="label">.tar.gz</span>
+				<div class="button-label">
+					<div class="icon"><BasicIconRenderer icon={'arrowdown'} /></div>
+					<span class="label">.tar.gz</span>
+				</div>
 			</a>
 		</div>
 	</div>
@@ -68,7 +75,8 @@
 	}
 
 	.api-tutorial-section:hover {
-		border-color: var(--accent-color);
+		border-color: hsl(76 100% 50%);
+		border-color: oklch(92.22% 0.244 126.84);
 	}
 
 	h4 {
@@ -82,7 +90,6 @@
 	.section-name:hover {
 		font-size: 1.4rem;
 		font-weight: 400;
-		color: var(--accent-color);
 		background-color: var(--page-bg-color);
 		text-decoration: none;
 		line-height: 1.3;
@@ -90,9 +97,9 @@
 	}
 
 	.section-summary {
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		color: var(--white-shade3);
-		line-height: 1.5;
+		line-height: 1.6;
 	}
 
 	.summary-top {
@@ -123,10 +130,17 @@
 		flex: 1;
 		display: flex;
 		flex-flow: row nowrap;
-		gap: 0.5rem;
+		gap: 0.75rem;
 		align-items: center;
 		line-height: 1;
 		margin: 0;
+	}
+
+	.github-links a {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.links-left,
@@ -135,45 +149,51 @@
 		display: flex;
 		flex-flow: column nowrap;
 		justify-content: space-evenly;
-		gap: 0.5rem;
+		gap: 0.75rem;
 	}
 
 	.links-left a,
 	.links-right a {
-		display: grid;
-		grid-template-rows: auto;
-		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.825rem;
+		font-size: 0.85rem;
 		box-shadow: none;
 		font-weight: 500;
 		text-align: center;
 		white-space: nowrap;
 		min-width: 80px;
-		padding: 0.5rem 0.5rem;
+		padding: 0.6rem 0.5rem;
+	}
+
+	.button-label {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 0.75rem;
+		width: 65px;
 	}
 
 	.links-left a {
-		grid-template-columns: 1fr 20px 33px 1fr;
-		color: var(--green-icon);
+		color: hsl(76 100% 50%);
+		color: oklch(92.22% 0.244 126.84);
 		background-color: var(--black);
-		border: 1px solid var(--green-icon);
+		border: 1px solid currentColor;
 	}
 
 	.links-left a:hover {
-		background-color: var(--green-icon);
+		background-color: hsl(76 100% 50%);
+		background-color: oklch(92.22% 0.244 126.84);
 		color: var(--black);
 	}
 
 	.links-right a {
-		grid-template-columns: 1fr 13px 38px 1fr;
-		color: var(--blue-icon);
+		color: hsl(173.22 100% 65%);
+		color: oklch(90.73% 0.159 184.005);
 		background-color: var(--black);
-		border: 1px solid var(--blue-icon);
+		border: 1px solid currentColor;
 	}
 
 	.links-right a:hover {
-		background-color: var(--blue-icon);
+		background-color: hsl(173.22 100% 65%);
+		background-color: oklch(90.73% 0.159 184.005);
 		color: var(--black);
 	}
 
@@ -188,15 +208,18 @@
 		grid-column: 3 / span 1;
 	}
 
+	.links-left .icon {
+		width: 15px;
+	}
+
+	.links-right .icon {
+		width: 11px;
+	}
+
 	@media (min-width: 600px) {
 		.github-links {
 			flex-flow: row nowrap;
 			justify-content: space-evenly;
-		}
-		.github-links a {
-			flex: 1;
-			font-size: 0.9rem;
-			padding: 0.5rem 1rem;
 		}
 		.links-left,
 		.links-right {
@@ -205,6 +228,11 @@
 			flex-flow: row nowrap;
 			justify-content: space-evenly;
 			gap: 0.5rem;
+		}
+
+		.button-label {
+			width: 100%;
+			justify-content: center;
 		}
 	}
 
@@ -217,12 +245,6 @@
 			gap: 1rem;
 		}
 
-		.github-links a {
-			font-size: 1rem;
-			min-width: 110px;
-			padding: 0.5rem 1rem;
-		}
-
 		.links-left,
 		.links-right {
 			gap: 1rem;
@@ -230,6 +252,21 @@
 
 		.github-links .icon {
 			height: 14px;
+		}
+
+		.links-left .icon {
+			width: 16px;
+		}
+
+		.links-right .icon {
+			width: 12px;
+		}
+	}
+	@media (min-width: 768px) {
+		.github-links a {
+			flex: 1;
+			font-size: 0.9rem;
+			padding: 0.6rem 1rem;
 		}
 	}
 </style>

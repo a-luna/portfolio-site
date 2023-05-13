@@ -1,4 +1,4 @@
-import type { HttpAuthToken, HttpMethod, HttpResult } from '$lib/types';
+import type { HttpAuthToken, HttpMethod, HttpResult } from '$lib/types/types';
 
 async function send(args: {
 	method: HttpMethod;

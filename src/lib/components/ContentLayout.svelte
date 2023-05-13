@@ -1,19 +1,17 @@
 <script lang="ts">
-	import { MY_TWITTER_HANDLE, SITE_TITLE } from '$lib/siteConfig';
-	import type { BlogPost, TutorialSection } from '$lib/types';
 	import ByLine from '$lib/components/ByLine.svelte';
-	import { enableCopyCodeButtons, updateHeadingElements } from '$lib/content/browser';
+	import { enableCopyCodeButtons } from '$lib/content/browser';
+	import { MY_TWITTER_HANDLE, SITE_TITLE } from '$lib/siteConfig';
+	import type { BlogPost, ProjectReadme, TutorialSection } from '$lib/types/types';
 	import { onMount } from 'svelte';
 
-	export let content: BlogPost | TutorialSection;
+	export let content: ProjectReadme | BlogPost | TutorialSection;
 	export let contentType: string;
 	let pageLoaded = false;
 	let buttonsEnabled = false;
-	let headingsUpdated = false;
 
 	$: published = content?.date ? new Date(content.date) : new Date(0);
 	$: if (pageLoaded && !buttonsEnabled) buttonsEnabled = enableCopyCodeButtons();
-	$: if (pageLoaded && !headingsUpdated) headingsUpdated = updateHeadingElements();
 
 	onMount(() => (pageLoaded = true));
 </script>
@@ -26,13 +24,13 @@
 	<meta property="og:title" content={content?.title} />
 	<meta name="Description" content={content?.description} />
 	<meta property="og:description" content={content?.description} />
-	<meta name="twitter:card" content={content?.coverImage.src ? 'summary_large_image' : 'summary'} />
+	<meta name="twitter:card" content={content?.coverImage?.src ? 'summary_large_image' : 'summary'} />
 	<meta name="twitter:creator" content={'@' + MY_TWITTER_HANDLE} />
 	<meta name="twitter:title" content={content?.title} />
 	<meta name="twitter:description" content={content?.description} />
-	{#if content?.coverImage}
-		<meta property="og:image" content={content.coverImage.src} />
-		<meta name="twitter:image" content={content.coverImage.src} />
+	{#if content?.coverImage?.src}
+		<meta property="og:image" content={content?.coverImage?.src} />
+		<meta name="twitter:image" content={content?.coverImage?.src} />
 	{/if}
 </svelte:head>
 
@@ -40,14 +38,19 @@
 	<header>
 		<div class="wrapper">
 			<h1>{content?.title}</h1>
-			<ByLine {published} />
+			<ByLine {published} {contentType} />
 		</div>
 	</header>
 	<div
-		class="wrapper prose prose-invert mb-8 w-full max-w-none prose-headings:m-0 prose-headings:font-normal prose-headings:leading-none prose-figure:mx-auto prose-figure:mb-4 prose-strong:inline prose-video:mx-auto prose-video:my-0"
+		class="wrapper content-wrapper prose prose-invert mb-8 w-full max-w-none prose-headings:m-0 prose-headings:font-normal prose-headings:leading-none prose-figure:mx-auto prose-figure:mb-4 prose-strong:inline prose-video:mx-auto prose-video:my-0"
 	>
 		<slot />
 	</div>
+	{#if $$slots.nav}
+		<div class="wrapper nav-wrapper">
+			<slot name="nav" />
+		</div>
+	{/if}
 </article>
 
 <style lang="postcss">
@@ -63,9 +66,9 @@
 		margin: 1rem 0;
 	}
 	h1 {
-		font-size: 2rem;
+		font-family: 'Noto Sans', Inter, Arial, Helvetica, sans-serif;
+		font-size: 1.65rem;
 		font-weight: 500;
-		line-height: 1.2;
 		color: var(--post-title-text-color);
 		-webkit-text-fill-color: var(--post-title-text-color);
 		-webkit-text-stroke-width: 1px;
@@ -80,33 +83,37 @@
 			0.25px 0.25px var(--post-title-text-shadow-color); */
 	}
 	.wrapper {
-		padding: 0 1.5rem;
-		margin: 1rem auto;
+		padding-top: 0;
+		padding-bottom: 0;
+		padding-left: var(--mobile-page-padding);
+		padding-right: var(--mobile-page-padding);
 		width: 100%;
+		margin: 1rem auto;
+	}
+	.content-wrapper {
+		background-color: var(--page-bg-color);
 		max-width: var(--max-width);
+	}
+	.nav-wrapper {
+		background-color: var(--black-tint2);
 	}
 	header .wrapper {
 		display: flex;
 		flex-flow: column nowrap;
 		gap: 1rem;
-		margin: 1rem auto;
+		max-width: var(--max-width);
 	}
 	@media (min-width: 640px) {
-		.wrapper {
-			padding: 0 2rem;
-		}
 		h1 {
-			font-size: 2.25rem;
-		}
-	}
-	@media (min-width: 640px) {
-		.wrapper {
-			padding: 0 1.5rem;
+			font-size: 1.8rem;
 		}
 	}
 	@media (min-width: 768px) {
 		.wrapper {
 			padding: 0;
+		}
+		h1 {
+			font-size: 2rem;
 		}
 	}
 </style>

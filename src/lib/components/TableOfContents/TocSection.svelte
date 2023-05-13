@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TocSection } from '$lib/types';
+	import type { TocSection } from '$lib/types/types';
 
 	export let section: TocSection;
 	const { heading, children } = section;

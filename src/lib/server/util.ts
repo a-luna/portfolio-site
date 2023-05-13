@@ -1,5 +1,5 @@
 import { PROJECT_CATEGORIES, PROJECT_TYPES, TECH_LIST } from '$lib/constants';
-import type { LanguageOrTech, ProjectCategory } from '$lib/types';
+import type { LanguageOrTech, ProjectCategory } from '$lib/types/types';
 
 export const isProjectCategory = (category: string): category is ProjectCategory => {
 	const categoriesLower = [...PROJECT_TYPES, ...PROJECT_CATEGORIES].map((cat) => cat.toLowerCase());

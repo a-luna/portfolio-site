@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getFilterSettingDetails } from '$lib/filterSettings';
-	import type { LanguageOrTech } from '$lib/types';
+	import type { LanguageOrTech } from '$lib/types/types';
 
 	export let language: LanguageOrTech;
 

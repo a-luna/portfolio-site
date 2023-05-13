@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { beforeNavigate } from '$app/navigation';
-	import Chevron from '$lib/components/Icons/Chevron.svelte';
 	import TocSection from '$lib/components/TableOfContents/TocSection.svelte';
-	import type { TocSection as TocSectionType } from '$lib/types';
+	import type { TocSection as TocSectionType } from '$lib/types/types';
 	import { getRandomHexString } from '$lib/util';
+	import { BasicIconRenderer } from '$lib/components/Icons';
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 
@@ -29,23 +29,25 @@
 	});
 </script>
 
-<details id="table-of-contents" bind:this={detailsElement} on:toggle={() => handleSectionToggled()}>
-	<summary>
-		<div class="summary-wrapper">
-			<div class="details-icon"><Chevron /></div>
-			Table of Contents
-		</div>
-	</summary>
-	{#if open}
-		<div class="toc-wrapper" in:slide={{ duration: 300, delay: 100 }} out:slide={{ duration: 300, delay: 100 }}>
-			<ul>
-				{#each toc as section}
-					<TocSection {section} />
-				{/each}
-			</ul>
-		</div>
-	{/if}
-</details>
+{#if toc.length}
+	<details id="table-of-contents" bind:this={detailsElement} on:toggle={() => handleSectionToggled()}>
+		<summary>
+			<div class="summary-wrapper">
+				<div class="details-icon"><BasicIconRenderer icon={'chevron'} /></div>
+				Table of Contents
+			</div>
+		</summary>
+		{#if open}
+			<div class="toc-wrapper" in:slide={{ duration: 300, delay: 100 }} out:slide={{ duration: 300, delay: 100 }}>
+				<ul>
+					{#each toc as section}
+						<TocSection {section} />
+					{/each}
+				</ul>
+			</div>
+		{/if}
+	</details>
+{/if}
 
 <style lang="postcss">
 	#table-of-contents {
@@ -80,19 +82,17 @@
 		text-decoration: none;
 	}
 
-	#table-of-contents :global(a code:hover) {
-		color: var(--black-tint3);
-		background-color: var(--accent-color);
-		transition: all 350ms ease-out;
-	}
-
 	#table-of-contents :global(p) {
 		margin: 0;
 	}
 
+	#table-of-contents :global(ul li) {
+		font-size: 0.9rem;
+	}
+
 	.toc-wrapper ul {
 		list-style: square;
-		margin: 1rem 0 1rem 2.5rem;
+		padding: 1rem 0.5rem 1rem 1.5rem;
 	}
 
 	.toc-wrapper :global(ul > li::marker) {
@@ -116,32 +116,36 @@
 		display: none;
 	}
 
-	#table-of-contents > summary {
+	:global(.blog #table-of-contents > summary),
+	:global(.readme #table-of-contents > summary) {
 		display: list-item;
 		list-style: none;
 		color: var(--accent-color);
 		background-color: var(--toggle-group-bg-color);
-		font-size: 1.25rem;
+		font-size: 1.1rem;
 		line-height: 1;
-		padding: 11px 5px;
+		padding: 0.75rem 0.5rem;
 		cursor: pointer;
 		white-space: nowrap;
+		transition: background-color 0.3s ease-in;
+		border: 1px solid var(--accent-color);
 	}
 
-	:global(.blog #table-of-contents > summary) {
-		border: 2px solid var(--accent-color);
+	:global(.blog #table-of-contents[open] > summary),
+	:global(.readme #table-of-contents[open] > summary) {
+		font-weight: 500x;
 	}
 
 	:global(.tutorial #table-of-contents > summary) {
 		border-top: none;
-		border-left: 2px solid var(--accent-color);
-		border-right: 2px solid var(--accent-color);
+		border-left: 1px solid var(--accent-color);
+		border-right: 1px solid var(--accent-color);
 		border-bottom: none;
 	}
 
 	#table-of-contents[open] > summary {
-		color: var(--page-bg-color);
 		font-weight: 500;
+		color: var(--page-bg-color);
 		background-color: var(--accent-color);
 	}
 
@@ -155,7 +159,7 @@
 	}
 
 	.details-icon {
-		width: 12px;
+		width: 10px;
 		transition: transform 0.3s ease-in;
 	}
 
@@ -165,6 +169,35 @@
 
 	.toc-wrapper {
 		background-color: var(--toggle-group-bg-color);
-		border: 2px solid var(--accent-color);
+		border-top: none;
+		border-right: 1px solid var(--accent-color);
+		border-bottom: 1px solid var(--accent-color);
+		border-left: 1px solid var(--accent-color);
+	}
+
+	@media (min-width: 640px) {
+		#table-of-contents :global(ul li) {
+			font-size: 1rem;
+		}
+		:global(.blog #table-of-contents > summary),
+		:global(.readme #table-of-contents > summary) {
+			font-size: 1.25rem;
+			padding: 1rem;
+			border: 2px solid var(--accent-color);
+		}
+		:global(.tutorial #table-of-contents > summary) {
+			border-top: none;
+			border-left: 2px solid var(--accent-color);
+			border-right: 2px solid var(--accent-color);
+			border-bottom: none;
+		}
+		.details-icon {
+			width: 12px;
+		}
+		.toc-wrapper {
+			border-right: 2px solid var(--accent-color);
+			border-bottom: 2px solid var(--accent-color);
+			border-left: 2px solid var(--accent-color);
+		}
 	}
 </style>

@@ -2,40 +2,38 @@
 	import MenuButton from '$lib/components/Nav/MenuButton.svelte';
 	import NavBrand from '$lib/components/Nav/NavBrand.svelte';
 	import NavItems from '$lib/components/Nav/NavItems.svelte';
-	import NavSideBar from '$lib/components/Nav/NavSideBar.svelte';
 	import SocialLinks from '$lib/components/Nav/SocialLinks.svelte';
+	import { mobileDisplay } from '$lib/stores';
+	import { onMount } from 'svelte';
+	let mounted = false;
 
-	let open = false;
+	onMount(() => (mounted = true));
 </script>
 
-<div class="nav-wrapper">
+{#if mounted}
 	<div class="nav-container">
 		<NavBrand />
-		<NavItems />
-		<SocialLinks mobile={false} {open} />
-		<MenuButton bind:open />
-		<NavSideBar bind:open />
+		{#if !$mobileDisplay}
+			<NavItems />
+			<SocialLinks />
+		{/if}
+		<MenuButton />
 	</div>
-</div>
+{/if}
 
 <style lang="postcss">
-	.nav-wrapper {
-		width: 100%;
-		max-width: var(--max-width);
-		padding: 0;
-		margin: 0 auto;
-		background-color: inherit;
-	}
-
 	.nav-container {
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
-		align-items: flex-start;
-		gap: 1.5rem;
+		align-items: baseline;
+		width: 100%;
 		background-color: inherit;
 		margin: 0 auto;
-		padding: 1rem 1.5rem;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		padding-left: var(--mobile-page-padding);
+		padding-right: var(--mobile-page-padding);
 	}
 
 	@media (min-width: 640px) {
@@ -47,9 +45,10 @@
 	@media (min-width: 768px) {
 		.nav-container {
 			justify-content: flex-start;
-			align-items: flex-end;
+			align-items: flex-start;
+			max-width: var(--max-width);
+			margin: 0 auto;
 			padding: 1.5rem 0;
-			margin: 0;
 		}
 	}
 </style>

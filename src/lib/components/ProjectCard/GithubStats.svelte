@@ -1,28 +1,33 @@
 <script lang="ts">
-	import SvgIcon from '$lib/components/Icons/SvgIcon.svelte';
-	import type { RepoWithMetaData } from '$lib/types';
+	import type { RepoWithMetaData } from '$lib/types/types';
+	import { BasicIconRenderer } from '$lib/components/Icons';
 
 	export let project: RepoWithMetaData;
+	export let iconSize = '16px';
+
+	$: margin = iconSize === '16px' ? 'margin: 0 2rem 0 0;' : 'margin: 0;';
 </script>
 
-<div class="github-stats">
+<div class="github-stats" style={margin}>
 	<a href={project.starsUrl} class="gh-url">
-		<SvgIcon icon={'star'} size={'16px'} />
+		<BasicIconRenderer icon={'star'} height={iconSize} width={iconSize} margin={'auto 0'} />
 		<span class="stat">{project.starCount}</span>
 	</a>
 	<a href={project.forksUrl} class="gh-url">
-		<SvgIcon icon={'fork'} size={'16px'} />
+		<BasicIconRenderer icon={'fork'} height={iconSize} width={iconSize} margin={'auto 0'} />
 		<span class="stat">{project.forkCount}</span>
 	</a>
 </div>
 
 <style lang="postcss">
+	:global(.featured-projects) .github-stats {
+		font-size: 0.85rem;
+	}
 	.github-stats {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
 		font-size: 1rem;
-		margin: 0 2rem 0 0;
 	}
 	.gh-url {
 		display: flex;

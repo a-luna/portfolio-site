@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Arrow from '$lib/components/Icons/Arrow.svelte';
+	import { BasicIconRenderer } from '$lib/components/Icons';
 </script>
 
 <div class="project-card-link">
 	<div class="icon">
-		<Arrow />
+		<BasicIconRenderer icon={'arrow'} width={'24px'} />
 	</div>
 </div>
 
@@ -15,7 +15,7 @@
 		height: 3rem;
 		justify-content: center;
 		align-items: center;
-		color: var(--white-shade5);
+		color: var(--body-text);
 		background-color: var(--project-card-border-color);
 		border-left-width: 2px;
 		border-left-style: solid;
@@ -29,8 +29,6 @@
 	}
 
 	.icon {
-		width: 24px;
-		height: 24px;
 		transform: rotate(45deg);
 	}
 </style>

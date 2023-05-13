@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import SectionSummary from '$lib/components/ApiTutorial/SectionSummary.svelte';
+	import ContentLayout from '$lib/components/ContentLayout.svelte';
+	import { nullBlogPost } from '$lib/constants';
 	import { SITE_URL } from '$lib/siteConfig';
 	import { tutorialSections } from '$lib/stores';
-	import type { BlogPost, TutorialSection } from '$lib/types';
-	import { nullBlogPost } from '$lib/constants';
+	import type { BlogPost, TutorialSection } from '$lib/types/types';
 	import type { PageData } from './$types';
-	import ContentLayout from '$lib/components/ContentLayout.svelte';
 
 	export let data: PageData;
-	let list: TutorialSection[];
+	let list: TutorialSection[] = [];
 	const description =
 		'This tutorial series provides step-by-step instructions and in-depth explanations to guide you through the process of creating a robust, production-quality REST API. The toolstack consists of Flask, Flask-RESTx, SQLAlchemy, pyjwt, tox and other packages. Code quality is a major focus, with considerable time dedicated to testing (using pytest), logging and tools such as coverage, flake8 and mypy. The tutorial concludes by creating a process that continuously integrates (with tox, travis/circle CI, coveralls) and deploys the API (with either Github or Azure DevOps to Heroku).';
 
@@ -22,40 +22,41 @@
 		coverImage: {
 			name: 'cover',
 			src: '',
-			caption: 'Photo by Matt Howard on Unsplash'
-		}
+			caption: 'Photo by Matt Howard on Unsplash',
+		},
 	};
 
 	$: allTutorialSections = data.allTutorialSections;
 	$: if (browser && Object.keys(allTutorialSections).length) $tutorialSections = allTutorialSections;
-	$: if (tutorialSections && $tutorialSections.length)
-		list = $tutorialSections.sort((a, b) => (a?.series_weight ?? 0) - (b?.series_weight ?? 0));
+	$: list = $tutorialSections.sort((a, b) => (a?.series_weight ?? 0) - (b?.series_weight ?? 0));
 </script>
 
-<ContentLayout {content} contentType={'tutorial'}>
-	<section class="article-list">
-		<p>
-			This tutorial series provides step-by-step instructions and in-depth explanations to guide you through the process
-			of creating a robust, production-quality REST API. The toolstack consists of Flask, Flask-RESTx, SQLAlchemy,
-			pyjwt, tox and other packages. Code quality is a major focus, with considerable time dedicated to testing (using
-			pytest), logging and tools such as coverage, flake8 and mypy. The tutorial concludes by creating a process that
-			continuously integrates (with tox, travis/circle CI, coveralls) and deploys the API (with either Github or Azure
-			DevOps to Heroku).
-		</p>
-		<h3>All Sections</h3>
-		{#if list.length}
-			<ul data-sveltekit-preload-data="hover">
-				{#each list as item}
-					<li>
-						<SectionSummary section={item} />
-					</li>
-				{/each}
-			</ul>
-		{:else}
-			<div class="prose dark:prose-invert">No tutorial sections found!</div>
-		{/if}
-	</section>
-</ContentLayout>
+{#if $tutorialSections.length}
+	<ContentLayout {content} contentType={'tutorial'}>
+		<section class="article-list">
+			<p>
+				This tutorial series provides step-by-step instructions and in-depth explanations to guide you through the
+				process of creating a robust, production-quality REST API. The toolstack consists of Flask, Flask-RESTx,
+				SQLAlchemy, pyjwt, tox and other packages. Code quality is a major focus, with considerable time dedicated to
+				testing (using pytest), logging and tools such as coverage, flake8 and mypy. The tutorial concludes by creating
+				a process that continuously integrates (with tox, travis/circle CI, coveralls) and deploys the API (with either
+				Github or Azure DevOps to Heroku).
+			</p>
+			<h3>All Sections</h3>
+			{#if list.length}
+				<ul data-sveltekit-preload-data="hover">
+					{#each list as item}
+						<li>
+							<SectionSummary section={item} />
+						</li>
+					{/each}
+				</ul>
+			{:else}
+				<div class="prose dark:prose-invert">No tutorial sections found!</div>
+			{/if}
+		</section>
+	</ContentLayout>
+{/if}
 
 <style lang="postcss">
 	section {
@@ -68,8 +69,8 @@
 		max-width: 42rem;
 	}
 	p {
-		font-size: 1.1rem;
-		line-height: 1.5;
+		font-size: 0.9rem;
+		line-height: 1.6;
 		margin: 0;
 	}
 	h3 {
@@ -77,8 +78,8 @@
 		margin: 2rem 0 1rem 0;
 		font-size: 1.7rem;
 		line-height: 2rem;
-		font-weight: 500;
-		letter-spacing: -0.025em;
+		font-weight: 400;
+		letter-spacing: 0.75px;
 	}
 	ul {
 		list-style: none;

@@ -1,19 +1,16 @@
 <script lang="ts">
 	import { getFilterSettingDetails } from '$lib/filterSettings';
-	import type { FilterSetting } from '$lib/types';
+	import type { FilterSetting } from '$lib/types/types';
 
 	export let value: FilterSetting;
 	export let hovered = false;
 	export let selected = false;
 
 	$: details = getFilterSettingDetails(value);
-	$: color = hovered || selected ? 'var(--black)' : `var(--${details.color}-icon)`;
-	$: bgColor = hovered || selected ? `var(--${details.color}-icon)` : 'var(--black)';
 	$: displayName = details.displayName;
-	$: style = `color: ${color}; background-color: ${bgColor}`;
 </script>
 
-<button class="filter-setting" class:hovered class:selected {style} on:click>
+<button class="filter-setting {details.color}" class:hovered class:selected on:click>
 	<span class="filter-value">{displayName}</span>
 </button>
 

@@ -2,7 +2,7 @@
 	import BlogSummary from '$lib/components/BlogPost/BlogSummary.svelte';
 	import SectionLayout from '$lib/components/SectionLayout.svelte';
 	import { SITE_TITLE } from '$lib/siteConfig';
-	import type { BlogPost } from '$lib/types';
+	import type { BlogPost } from '$lib/types/types';
 	import type { PageData } from './$types';
 
 	export let data: PageData;

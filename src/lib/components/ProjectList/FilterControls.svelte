@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Clear from '$lib/components/Icons/Clear.svelte';
-	import Filter from '$lib/components/Icons/Filter.svelte';
+	import { BasicIconRenderer } from '$lib/components/Icons';
 	import { createEventDispatcher } from 'svelte';
 
 	export let showFilters: boolean;
@@ -15,7 +14,9 @@
 		title="Show/Hide Project Filters"
 		on:click={() => (showFilters = !showFilters)}
 	>
-		<div class="icon"><Filter /></div>
+		<div class="icon">
+			<BasicIconRenderer icon={'filter'} />
+		</div>
 	</button>
 	<button
 		class="reset-filters"
@@ -23,7 +24,9 @@
 		title="Reset Filters"
 		on:click={() => dispatch('resetFilter')}
 	>
-		<div class="icon"><Clear /></div>
+		<div class="icon">
+			<BasicIconRenderer icon={'close'} height={'100%'} width={'100%'} />
+		</div>
 	</button>
 </div>
 
@@ -40,7 +43,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: var(--page-bg-color);
+		background-color: var(--black);
 		border: 2px solid var(--white);
 		color: var(--white);
 		width: 48px;
@@ -50,7 +53,7 @@
 	.show-filters.open {
 		border-color: var(--accent-color);
 		background-color: var(--accent-color);
-		color: var(--page-bg-color);
+		color: var(--black);
 	}
 
 	.show-filters.open:hover {
@@ -62,14 +65,10 @@
 		color: var(--dark-gray-shade2);
 	}
 
-	.show-filters:hover {
+	.show-filters:hover,
+	.reset-filters:not([disabled]):hover {
 		border-color: var(--accent-color);
 		color: var(--accent-color);
-	}
-
-	.reset-filters:not([disabled]):hover {
-		border-color: var(--pink-icon);
-		color: var(--pink-icon);
 	}
 
 	.show-filters .icon {

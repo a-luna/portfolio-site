@@ -1,6 +1,6 @@
 import { convertContentToHtml } from '$lib/server';
 import { tutorialSections } from '$lib/stores';
-import type { TutorialSection } from '$lib/types';
+import type { TutorialSection } from '$lib/types/types';
 import { error, json } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import type { RequestEvent, RequestHandler } from './$types';

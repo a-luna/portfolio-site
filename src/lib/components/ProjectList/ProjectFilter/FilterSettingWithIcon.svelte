@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getFilterSettingDetails } from '$lib/filterSettings';
-	import type { FilterSetting, ProjectTypeDetails } from '$lib/types';
+	import type { FilterSetting, ProjectTypeDetails } from '$lib/types/types';
 
 	export let value: FilterSetting;
 	export let hovered = false;
@@ -9,17 +9,17 @@
 	let iconColor: string;
 
 	$: details = getFilterSettingDetails(value) as unknown as ProjectTypeDetails;
-	$: iconColor = details ? `var(--${details.color}-icon)` : '--accent-color';
+	$: iconColor = details ? details.color : '--yellow-green';
 	$: displayName = details.displayName;
 	$: iconSize = details?.size ?? 16;
 	$: marginRight = Math.max(5, 23 - iconSize);
 	$: marginLeft = marginRight - 7;
-	$: iconStyle = `height: ${iconSize}px; width: ${iconSize}px; color: ${iconColor}; margin: 0 ${marginRight}px 0 ${marginLeft}px;`;
+	$: iconStyle = `height: ${iconSize}px; width: ${iconSize}px; margin: 0 ${marginRight}px 0 ${marginLeft}px;`;
 </script>
 
 <button class="filter-setting" class:selected class:hovered on:click>
-	<div class="icon-wrapper" style={iconStyle}>
-		<svelte:component this={details?.icon} {...{ fill: iconColor }} />
+	<div class="icon-wrapper {iconColor}" style={iconStyle}>
+		<svelte:component this={details?.icon} />
 	</div>
 	<span class="filter-value">{displayName}</span>
 </button>
@@ -46,8 +46,11 @@
 		vertical-align: middle;
 	}
 	.filter-value {
-		font-size: 0.9rem;
+		font-size: 1rem;
 		letter-spacing: 0.6px;
 		white-space: nowrap;
+	}
+	:global(.icon .filter-settings) .filter-value {
+		font-size: 0.9rem;
 	}
 </style>

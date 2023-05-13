@@ -2,7 +2,7 @@ import { API_KEY } from '$env/static/private';
 import { api } from '$lib/api';
 import { cachedUserRepos } from '$lib/projectMetaData';
 import { API_BASE_URL, GH_USER } from '$lib/siteConfig';
-import type { HttpResult } from '$lib/types';
+import type { HttpResult } from '$lib/types/types';
 import { error, json } from '@sveltejs/kit';
 import type { RequestEvent, RequestHandler } from './$types';
 

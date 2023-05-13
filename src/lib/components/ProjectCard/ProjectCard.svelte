@@ -3,7 +3,7 @@
 	import ProjectDetails from '$lib/components/ProjectCard/ProjectDetails.svelte';
 	import GithubStats from '$lib/components/ProjectCard/GithubStats.svelte';
 	import FilterSettingWithIcon from '$lib/components/ProjectList/ProjectFilter/FilterSettingWithIcon.svelte';
-	import type { RepoWithMetaData } from '$lib/types';
+	import type { RepoWithMetaData } from '$lib/types/types';
 
 	export let project: RepoWithMetaData;
 
@@ -29,7 +29,8 @@
 	}
 	.project-card:hover {
 		color: var(--body-text);
-		border-color: var(--accent-color);
+		border-color: hsl( 76  100%  50% );
+		border-color: oklch(92.22% 0.244 126.84);
 	}
 	.project-card {
 		display: grid;

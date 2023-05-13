@@ -1,7 +1,9 @@
-import Codepen from './Codepen.svelte';
-import Email from './Email.svelte';
-import Github from './Github.svelte';
-import LinkedIn from './LinkedIn.svelte';
-import Twitter from './Twitter.svelte';
+import Codepen from '$lib/components/Icons/Social/Codepen.svelte';
+import Github from '$lib/components/Icons/Social/Github.svelte';
+import GithubSquare from '$lib/components/Icons/Social/GithubSquare.svelte';
+import LinkedIn from '$lib/components/Icons/Social/LinkedIn.svelte';
+import LinkedInSquare from '$lib/components/Icons/Social/LinkedInSquare.svelte';
+import Twitter from '$lib/components/Icons/Social/Twitter.svelte';
+import TwitterSquare from '$lib/components/Icons/Social/TwitterSquare.svelte';
 
-export { Codepen, Email, Github, LinkedIn, Twitter };
+export { Codepen, Github, GithubSquare, LinkedIn, LinkedInSquare, Twitter, TwitterSquare };

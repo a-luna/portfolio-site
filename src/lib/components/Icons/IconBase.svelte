@@ -1,11 +1,10 @@
 <script lang="ts">
 	export let viewBox: string;
-	export let stroke: string = 'currentColor';
-	export let fill: string = 'currentColor';
+	export let title = '';
+	export let stroke = 'currentColor';
 	export let strokeWidth = '0';
 	export let padding = '0';
-	export let title: string = '';
-	export let transform: string = '';
+	export let transform = '';
 
 	$: strokeStyle = strokeWidth ? `stroke-width: ${strokeWidth}; ` : '';
 	$: paddingStyle = padding ? `padding: ${padding}; ` : '';
@@ -13,7 +12,7 @@
 	$: style = `${strokeStyle}${paddingStyle}${transformStyle}`;
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg" {viewBox} {stroke} {fill} {style}>
+<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" {viewBox} {stroke} {style}>
 	{#if title}
 		<title>{title}</title>
 	{/if}

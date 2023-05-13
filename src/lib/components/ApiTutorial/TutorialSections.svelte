@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { beforeNavigate } from '$app/navigation';
-	import Chevron from '$lib/components/Icons/Chevron.svelte';
 	import { tutorialSections } from '$lib/stores';
 	import { getRandomHexString } from '$lib/util';
+	import { BasicIconRenderer } from '$lib/components/Icons';
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 
@@ -29,7 +29,7 @@
 <details id="tutorial-sections" bind:this={detailsElement} on:toggle={() => handleSectionToggled()}>
 	<summary>
 		<div class="summary-wrapper">
-			<div class="details-icon"><Chevron /></div>
+			<div class="details-icon"><BasicIconRenderer icon={'chevron'} /></div>
 			Tutorial Sections
 		</div>
 	</summary>
@@ -82,6 +82,7 @@
 	}
 
 	.tutorial-sections-wrapper > ul > li {
+		font-size: 1rem;
 		margin: 0.5rem 0 0.5rem 0;
 	}
 
@@ -96,18 +97,10 @@
 
 	#tutorial-sections > summary {
 		display: list-item;
-		list-style: none;
-		color: var(--accent-color);
-		background-color: var(--toggle-group-bg-color);
-		border-top: 2px solid var(--accent-color);
-		border-left: 2px solid var(--accent-color);
-		border-right: 2px solid var(--accent-color);
+		border-top: 1px solid var(--accent-color);
+		border-left: 1px solid var(--accent-color);
+		border-right: 1px solid var(--accent-color);
 		border-bottom: none;
-		font-size: 1.25rem;
-		line-height: 1;
-		padding: 11px 5px;
-		cursor: pointer;
-		white-space: nowrap;
 	}
 
 	#tutorial-sections[open] > summary {
@@ -136,6 +129,18 @@
 
 	.tutorial-sections-wrapper {
 		background-color: var(--toggle-group-bg-color);
-		border: 2px solid var(--accent-color);
+		border: 1px solid var(--accent-color);
+	}
+
+	@media (min-width: 640px) {
+		#tutorial-sections > summary {
+			border-top: 2px solid var(--accent-color);
+			border-left: 2px solid var(--accent-color);
+			border-right: 2px solid var(--accent-color);
+		}
+
+		.tutorial-sections-wrapper {
+			border: 2px solid var(--accent-color);
+		}
 	}
 </style>
