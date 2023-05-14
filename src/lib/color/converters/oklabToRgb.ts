@@ -1,6 +1,6 @@
 import { OKLAB_M1, OKLAB_M2, XYZ_TO_RGB_MATRIX } from '$lib/color/converters/util/constants';
 import { invertMatrix3x3, multiplyMatrix3x3ByVector } from '$lib/color/converters/util/matrix';
-import type { OklabColor, RgbColor, XyzColor } from '$lib/types/types';
+import type { OklabColor, RgbColor, XyzColor } from '$lib/types';
 
 export const oklabToRgb = (oklab: OklabColor): RgbColor => xyzToRgb(OklabToXyz(oklab));
 

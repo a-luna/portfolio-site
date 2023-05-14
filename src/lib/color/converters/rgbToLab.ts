@@ -1,7 +1,7 @@
 import { EPSILON, KAPPA, RGB_TO_XYZ_MATRIX } from '$lib/color/converters/util/constants';
 import { multiplyMatrix3x3ByVector, type ColorValues } from '$lib/color/converters/util/matrix';
 import { decimalToOpacityValue } from '$lib/color/util';
-import type { LabColor, RgbColor, XyzColor } from '$lib/types/types';
+import type { LabColor, RgbColor, XyzColor } from '$lib/types';
 
 export const rgbToLab = (rgb: RgbColor): LabColor => xyzToLab(rgbToXyz(rgb));
 

@@ -1,5 +1,5 @@
 import { TAU } from '$lib/color/converters/util/constants';
-import type { LabColor, LchColor, OklabColor, OklchColor } from '$lib/types/types';
+import type { LabColor, LchColor, OklabColor, OklchColor } from '$lib/types';
 
 /// Converts colour given in CIELAB (a.k.a. L*a*b) space to
 /// CIELCh(ab) with hue expressed in degrees.

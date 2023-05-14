@@ -1,6 +1,6 @@
 import { cssColorFromOklch } from '$lib/color/parsers';
 import { sortColors } from '$lib/color/util';
-import type { CssColor, Result } from '$lib/types/types';
+import type { CssColor, Result } from '$lib/types';
 
 export const getColorSchemes = (color: CssColor): { [key: string]: CssColor[] } => ({
 	base: [color],

@@ -1,7 +1,7 @@
 import { parseNamedColor } from '$lib/color/parsers';
 import { sortColors } from '$lib/color/util';
 import { defaultCssColor, X11_NAMED_COLORS } from '$lib/constants';
-import type { ColorPalette, ComponentColor, CssColor, HueRange } from '$lib/types/types';
+import type { ColorPalette, ComponentColor, CssColor, HueRange } from '$lib/types';
 import { getRandomHexString, groupByProperty } from '$lib/util';
 
 export function getX11ColorPalettes(): ColorPalette[] {
@@ -26,7 +26,7 @@ export function getX11ColorPalettes(): ColorPalette[] {
 		id: getRandomHexString(4),
 		propName: 'grayPalette',
 		displayName: 'black - white',
-		colors: grays.map((c) => ({ color: c })),
+		colors: grays ? grays.map((c) => ({ color: c })) : [],
 		componentColor: 'black' as ComponentColor,
 	};
 	return [...colorPalettes, grayPalette];
@@ -47,7 +47,8 @@ function getX11ColorsOrderedByHue(): CssColor[][] {
 	return [colors, [...noSaturation, ...maxLightness]];
 }
 
-function getColorsInHueRange(hueStart: number, hueEnd: number, colors: CssColor[]): CssColor[] {
+function getColorsInHueRange(hueStart: number, hueEnd: number, colors: CssColor[] | undefined): CssColor[] {
+	if (!colors || !colors.length) return []
 	if (hueStart < 0 && hueEnd > 0) {
 		return [...getColorsInHueRange(hueStart + 360, 360, colors), ...getColorsInHueRange(0, hueEnd, colors)];
 	}
@@ -55,9 +56,13 @@ function getColorsInHueRange(hueStart: number, hueEnd: number, colors: CssColor[
 }
 
 const removeDuplicateColors = (colors: CssColor[]): CssColor[] =>
-	Object.values(groupByProperty<CssColor>(colors, 'hex')).map((g) =>
-		g.length === 1 ? g[0] : { ...g[0], name: combineColorNames(g) },
-	);
+	Object.values(groupByProperty<CssColor>(colors, 'hex')).map((g) => {
+		const groupColor = g[0] || defaultCssColor;
+		if (g.length > 1) {
+			groupColor.name = combineColorNames(g);
+		}
+		return groupColor;
+	});
 
-const combineColorNames = (colors: CssColor[]): string =>
-	[...new Set(colors.map((c) => (c?.name ? c.name : '')))].filter((n) => n).join('/');
+const combineColorNames = (colors: CssColor[] | undefined): string =>
+	[...new Set(colors?.map((c) => (c?.name ? c.name : '')))].filter((n) => n).join('/');

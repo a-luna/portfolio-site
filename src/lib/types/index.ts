@@ -39,7 +39,7 @@ import type { Result } from '$lib/types/Result';
 import type { ThemeColor } from '$lib/types/ThemeColor';
 
 export * from '$lib/types/Icons';
-export * from '$lib/types/types';
+export * from '$lib/types';
 
 export type {
 	CssColor,

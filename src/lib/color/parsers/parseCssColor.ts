@@ -1,6 +1,6 @@
 import { HEX_REGEX, HSL_REGEX, LAB_REGEX, LCH_REGEX, OKLAB_REGEX, OKLCH_REGEX, RGB_REGEX } from '$lib/color/regex';
 import { X11_NAMED_COLORS } from '$lib/constants';
-import type { CssColor, Result } from '$lib/types/types';
+import type { CssColor, Result } from '$lib/types';
 import { normalize } from '$lib/util';
 import { parseHex, parseHsl, parseLab, parseLch, parseOklab, parseOklch, parseRgb } from '.';
 

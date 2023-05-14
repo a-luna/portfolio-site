@@ -10,7 +10,7 @@ import {
 	oklchToString,
 	rgbToString,
 } from '$lib/color/util';
-import type { CssColor, HslLabNumberType, LchComponent, OklchColor, ParsedLchComponent } from '$lib/types/types';
+import type { CssColor, HslLabNumberType, LchComponent, OklchColor, ParsedLchComponent } from '$lib/types';
 
 export function parseOklch(regExpGroups: object): CssColor {
 	const components = extractOklchComponents(regExpGroups);
@@ -25,7 +25,7 @@ function extractOklchComponents(regExpGroups: object): ParsedLchComponent[] {
 			const match = LCH_VAL_NAME_REGEX.exec(groupName);
 			if (match) {
 				const component = match.groups?.value as LchComponent;
-				const numTypeIn = match.groups?.numFormat.toLowerCase() as HslLabNumberType;
+				const numTypeIn = match.groups?.numFormat?.toLowerCase() as HslLabNumberType;
 				const numTypeOut = getOklchNumberTypeForComponent(component);
 				const parsed = parseOklchComponentValue(component, numTypeIn, value);
 				components.push({ component, numType: numTypeOut, value: parsed });

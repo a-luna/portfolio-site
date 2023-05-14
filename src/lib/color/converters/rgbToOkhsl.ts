@@ -1,6 +1,6 @@
 import { get_Cs } from '$lib/color/converters/util/okhsl';
 import { decimalToOpacityValue } from '$lib/color/util';
-import type { OkhslColor, OklabColor, RgbColor } from '$lib/types/types';
+import type { OkhslColor, OklabColor, RgbColor } from '$lib/types';
 
 export function rgbToOkhsl(rgb: RgbColor): OkhslColor {
 	const { r, g, b, a } = rgb;

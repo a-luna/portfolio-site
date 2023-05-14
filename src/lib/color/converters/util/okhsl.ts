@@ -1,4 +1,4 @@
-import type { OklabColor, RgbColor } from '$lib/types/types';
+import type { OklabColor, RgbColor } from '$lib/types';
 
 export function get_Cs(L: number, a_: number, b_: number): [number, number, number] {
 	const cusp = find_cusp(a_, b_);

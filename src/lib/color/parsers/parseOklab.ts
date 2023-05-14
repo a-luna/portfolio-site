@@ -9,7 +9,7 @@ import {
 	oklchToString,
 	rgbToString,
 } from '$lib/color/util';
-import type { CssColor, HslLabNumberType, LabColor, LabComponent, OklabColor, ParsedLabComponent } from '$lib/types/types';
+import type { CssColor, HslLabNumberType, LabColor, LabComponent, OklabColor, ParsedLabComponent } from '$lib/types';
 
 export function parseOklab(regExpGroups: object): CssColor {
 	const components = extractOklabComponents(regExpGroups);
@@ -24,7 +24,7 @@ function extractOklabComponents(regExpGroups: object): ParsedLabComponent[] {
 			const match = LAB_VAL_NAME_REGEX.exec(groupName);
 			if (match) {
 				const component = match.groups?.value as LabComponent;
-				const numTypeIn = match.groups?.numFormat.toLowerCase() as HslLabNumberType;
+				const numTypeIn = match.groups?.numFormat?.toLowerCase() as HslLabNumberType;
 				const numTypeOut: HslLabNumberType = 'float';
 				const parsed = parseOklabComponentValue(component, numTypeIn, value);
 				components.push({ component, numType: numTypeOut, value: parsed });

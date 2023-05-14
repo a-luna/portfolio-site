@@ -1,4 +1,4 @@
-import type { CssColor } from '$lib/types/types';
+import type { CssColor } from '$lib/types';
 
 export interface ThemeColor {
 	color: CssColor;

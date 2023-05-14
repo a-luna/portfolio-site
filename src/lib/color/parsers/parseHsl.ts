@@ -9,7 +9,7 @@ import {
 	oklchToString,
 	rgbToString,
 } from '$lib/color/util';
-import type { CssColor, HslColor, HslComponent, HslLabNumberType, ParsedHslComponent } from '$lib/types/types';
+import type { CssColor, HslColor, HslComponent, HslLabNumberType, ParsedHslComponent } from '$lib/types';
 import { hslToRgb, labToLch, oklabToOklch, rgbToHex, rgbToLab, rgbToOkhsl, rgbToOklab } from '../converters';
 
 export function parseHsl(regExpGroups: object): CssColor {
@@ -25,7 +25,7 @@ function extractHslComponents(regExpGroups: object): ParsedHslComponent[] {
 			const match = HSL_VAL_NAME_REGEX.exec(groupName);
 			if (match) {
 				const component = match.groups?.value as HslComponent;
-				const numTypeIn = match.groups?.numFormat.toLowerCase() as HslLabNumberType;
+				const numTypeIn = match.groups?.numFormat?.toLowerCase() as HslLabNumberType;
 				const numTypeOut = getHslLabNumberTypeForComponent(component);
 				const parsed = parseHslComponentValue(component, numTypeIn, value);
 				components.push({ component, numType: numTypeOut, value: parsed });

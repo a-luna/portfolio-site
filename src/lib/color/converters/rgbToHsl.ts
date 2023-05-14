@@ -1,5 +1,5 @@
 import { decimalToOpacityValue } from '$lib/color/util';
-import type { HslColor, RgbColor } from '$lib/types/types';
+import type { HslColor, RgbColor } from '$lib/types';
 
 export function rgbToHsl(rgb: RgbColor): HslColor {
 	const r = rgb.r / 255;

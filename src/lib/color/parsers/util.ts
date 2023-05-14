@@ -1,4 +1,4 @@
-import type { HslLabNumberType, ParsedHexComponent, ParsedRgbComponent, RgbColor } from '$lib/types/types';
+import type { HslLabNumberType, ParsedHexComponent, ParsedRgbComponent, RgbColor } from '$lib/types';
 
 export function parseHueValue(numType: HslLabNumberType, value: string): number {
 	let hue = parseFloat(value);

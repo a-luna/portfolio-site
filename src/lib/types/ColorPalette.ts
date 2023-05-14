@@ -1,4 +1,4 @@
-import type { ComponentColor, ThemeColor } from '$lib/types/types';
+import type { ComponentColor, ThemeColor } from '$lib/types';
 
 export interface ColorPalette {
 	id: string;

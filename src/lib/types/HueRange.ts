@@ -1,4 +1,4 @@
-import type { ComponentColor } from '$lib/types/types';
+import type { ComponentColor } from '$lib/types';
 
 export interface HueRange {
 	hueStart: number;

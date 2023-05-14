@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { blogPosts } from '$lib/stores';
-	import type { BlogPost } from '$lib/types';
+	import type { BlogPost } from '$lib/types/types';
 	import { format } from 'date-fns';
 
 	export let allBlogPosts: BlogPost[];

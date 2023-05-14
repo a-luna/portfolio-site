@@ -1,4 +1,4 @@
-import type { HslColor, LabColor, LchColor, OkhslColor, OklabColor, OklchColor, RgbColor } from '$lib/types/types';
+import type { HslColor, LabColor, LchColor, OkhslColor, OklabColor, OklchColor, RgbColor } from '$lib/types';
 
 export interface CssColor {
 	hex: string;

@@ -1,4 +1,4 @@
-import type { HslColor, RgbColor } from '$lib/types/types';
+import type { HslColor, RgbColor } from '$lib/types';
 
 export function hslToRgb(hsl: HslColor): RgbColor {
 	const s = hsl.s / 100;

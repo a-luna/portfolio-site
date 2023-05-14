@@ -1,5 +1,5 @@
 import { get_Cs, oklab_to_linear_srgb } from '$lib/color/converters/util/okhsl';
-import type { OkhslColor, RgbColor } from '$lib/types/types';
+import type { OkhslColor, RgbColor } from '$lib/types';
 
 export function okhslToRgb(okhsl: OkhslColor): RgbColor {
 	const { h, s, l, a } = okhsl;
