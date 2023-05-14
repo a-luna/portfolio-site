@@ -433,7 +433,7 @@ export const nullBlogPost: BlogPost = {
 	description: '',
 	frontmatter: {},
 	hasToc: false,
-	category: 'allCategories',
+	category: 'allProjects',
 	language: 'allLanguages',
 	categories: [],
 	techList: [],

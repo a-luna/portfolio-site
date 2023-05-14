@@ -6,7 +6,6 @@ import {
 	convertWarningBoxes,
 	FA_BULLET_LIST_REGEX,
 	generateTableOfContents,
-	HTML_HEADING_REGEX,
 	identifyCodeBlocks,
 	transformCodeBlocks,
 	transformFaBulletLists,
@@ -77,7 +76,7 @@ export async function convertReadmeToHtml(markdown: string, repo: RepoWithMetaDa
 	const htmlFile = await markdownToHtmlProcessor.process(markdown.trim());
 	const html = String(htmlFile).trim();
 	const title = extractPageTitle(html) || repo.name;
-	
+
 	let toc: TocSection[] = [];
 	if (readmeHasToc(html)) {
 		toc = generateTableOfContents(html);
@@ -96,8 +95,8 @@ function initializeReadme(repo: RepoWithMetaData): ProjectReadme {
 		hasToc: true,
 		category: repo.primaryCategory,
 		language: repo.primaryLanguage,
-		categories: repo.categories,
-		techList: repo.languages,
+		categories: repo.categories || ['allCategories'],
+		techList: repo.languages|| ['allLanguages'],
 		canonical: `${SITE_URL}/${href}`,
 		slug: repo.name,
 		href,
@@ -121,7 +120,7 @@ function extractPageTitle(html: string): string | null {
 	if (matches) {
 		title = matches[0]?.groups?.text || null;
 		if (title?.includes('<!--')) {
-			title = title.slice(0, title.indexOf('<!--'))
+			title = title.slice(0, title.indexOf('<!--'));
 		}
 	}
 	title?.trim();

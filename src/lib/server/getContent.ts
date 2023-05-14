@@ -13,12 +13,14 @@ import type {
 	FrontMatterResources,
 	LanguageOrTech,
 	ProjectCategory,
+	ProjectType,
 	TutorialSection,
 } from '$lib/types/types';
 import { promises as fs } from 'fs';
 import grayMatter from 'gray-matter';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { isProjectType } from './typeguards';
 
 export const listBlogPosts = async (): Promise<BlogPost[]> => await getAllContent('blog_posts');
 export const listTutorialSections = async (): Promise<TutorialSection[]> => await getAllContent('flask-api-tutorial');
@@ -123,7 +125,7 @@ function parseMarkdownFile(
 		description: (data.summary as string) ?? content.trim().split('\n')[0] ?? '',
 		frontmatter: data.data as { [k: string]: string },
 		hasToc,
-		category: categories.at(0) ?? 'allCategories',
+		category: parseProjectType(categories[0]),
 		categories,
 		language: techList.at(0) ?? 'allLanguages',
 		techList,
@@ -133,6 +135,11 @@ function parseMarkdownFile(
 		coverImage: getCoverImage(slug, imageFolder, data.resources as FrontMatterResources[]),
 		resources: getArticleResources(slug, imageFolder, data.resources as FrontMatterResources[]),
 	};
+}
+
+function parseProjectType(category: ProjectCategory | undefined): ProjectType {
+	if (!category) return 'allProjects';
+	return isProjectType(category) ? category : 'allProjects';
 }
 
 function getCoverImage(slug: string, imageFolder: string, frontMatterRes: FrontMatterResources[]): BlogResource {
