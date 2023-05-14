@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import { FEATURED_PROJECTS } from '$lib/constants';
 	import { userRepos } from '$lib/stores';
-	import type { RepoWithMetaData } from '$lib/types/types';
+	import type { RepoWithMetaData } from '$lib/types';
 	import ProjectSummary from '../ProjectCard/ProjectSummary.svelte';
 
 	let featuredProjects: RepoWithMetaData[] = [];
@@ -21,9 +21,6 @@
 </div>
 
 <style lang="postcss">
-	h2 {
-		margin: 2rem 0;
-	}
 	.featured-projects {
 		display: flex;
 		flex-flow: column nowrap;
